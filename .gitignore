@@ -1,0 +1,7 @@
+*.pyc
+*.swp
+*~
+.already.running.lock
+__pycache__/
+venv/
+config.json

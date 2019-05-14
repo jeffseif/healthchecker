@@ -18,9 +18,9 @@ def stats():
         .disk_usage('/')
         .percent
     )
-    return f'''\
+    return '''\
     CPU: {cpu:.0f}%
     Mem: {memory:.0f}%
     Disk: {disk:.0f}%
     Users: {users}
-    '''
+    '''.format(**locals())

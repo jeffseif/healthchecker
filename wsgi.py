@@ -23,22 +23,28 @@ def str_function_wrapper(function):
             s = s.decode('utf-8')
 
         return (
-            f'<html><tt>{s:s}</tt></html>'
+            '<html><tt>{s:s}</tt></html>'
+            .format(s=s)
             .replace('\n', '<br>')
         )
 
     return inner
 
 
-def registrar(rule, function):
-    route_registrar = app.route(rule)
-    wrapped_function = str_function_wrapper(function)
-    route_registrar(wrapped_function)
+def register_endpoint(rule, function):
+    app.add_url_rule(
+        rule,
+        endpoint=rule.split('/')[1],
+        view_func=str_function_wrapper(function),
+    )
 
 
-list(itertools.starmap(registrar, (
-    ('/', lambda: 'hello world ☃'),
-    ('/ls', ls),
-    ('/stats', stats),
-    *maker_generator(app)
-)))
+list(itertools.starmap(
+    register_endpoint,
+    (
+        ('/', lambda: 'hello world ☃'),
+        ('/ls', ls),
+        ('/stats', stats),
+        *maker_generator(app)
+    )
+))

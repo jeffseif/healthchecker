@@ -26,3 +26,13 @@ By adding a rule and directory path to `config.json`, `healthchecker` will autom
 <html><tt>make[1]: Entering directory '/path/to/botw/git/'<br>> Full Ancient armor<br>90: Ancient Gear<br>65: Ancient Spring<br>50: Ancient Shaft
 ...
 ```
+
+## Keep a long-running daemon
+
+`healthchecker` is designed so that (upon issuing `make`) only one daemon instance runs at a time.  This allows for convenient auto-recovery with `crontab`:
+
+```bash
+> crontab -l
+# Once per hour, start healthchecker or restart it in case it has failed
+0 * * * * PORT=80 make -C /path/to/healthchecker/git/
+```

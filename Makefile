@@ -23,7 +23,6 @@ already_running:
 
 $(VENV): requirements-minimal.txt
 	@virtualenv \
-		--no-site-packages \
 		--python=$(PYTHON) \
 		$@
 	@$@/bin/pip install \
